@@ -1,7 +1,8 @@
 const inquirer = require("inquirer");
 const fs = require("fs");
-const manager = require("./employee");
 const employee = require("./employee");
+
+const jest = require("jest");
 
 class manager extends employee {
 	constructor(office) {
@@ -15,3 +16,4 @@ class manager extends employee {
 		return "manager";
 	}
 }
+module.exports = manager;

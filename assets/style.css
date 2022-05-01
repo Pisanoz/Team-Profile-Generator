@@ -1,0 +1,21 @@
+* {
+	box-sizing: border-box;
+}
+
+body {
+	display: flex;
+	flex-direction: column;
+}
+
+#Header {
+	background-color: red;
+	color: black;
+	text-align: center;
+	justify-content: center;
+}
+
+#memberCard {
+	text-align: center;
+	justify-content: center;
+	color: white;
+}

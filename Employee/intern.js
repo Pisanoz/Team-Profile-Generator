@@ -1,7 +1,8 @@
 const inquirer = require("inquirer");
 const fs = require("fs");
-const intern = require("./employee");
+
 const employee = require("./employee");
+const jest = require("jest");
 
 class intern extends employee {
 	constructor(school) {
@@ -16,3 +17,4 @@ class intern extends employee {
 		return "intern";
 	}
 }
+module.exports = intern;
