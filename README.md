@@ -12,4 +12,5 @@ this app lets you keep track of employees and there information
 
 #testing
 I did tests on to make sure you can add employees and see there ifomation was geting added right.
-b
+
+C:\Users\deathtrooper02\Desktop\School_Work\Homework\Team-Profile-Generator\assets\imgs\Untitled_ May 1, 2022 3_53 PM.webm
