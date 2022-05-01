@@ -3,8 +3,8 @@ const manager = require("./Employee/manager");
 const engineer = require("./Employee/engineer");
 const intern = require("./Employee/intern");
 const employee = require("./Employee/employee");
-const generateHTML = require("./generateHTML");
-let memrole = "";
+// const generateHTML = require("./generatehtml");
+
 const employeequestion = [
 	{
 		type: "input",
@@ -22,9 +22,10 @@ const employeequestion = [
 		message: "Employee's Email",
 	},
 	{
-		type: "input",
+		type: "list",
 		name: "role",
-		message: "Employee's Role",
+		message: "role?",
+		choices: ["Manager", "Engineer", "Intern"],
 	},
 ];
 
@@ -52,25 +53,45 @@ const internquestions = [
 function init() {
 	employeeentery();
 }
-
+const teamembers = [];
+let memberrole = "";
 function employeeentery() {
 	inquirer.prompt(employeequestion).then(function (data) {
-		if (data.memrole == manager) {
-			inquirer.prompt(managerquestions).then(function (data) {
-				memrole = data.office;
-				teammembers.push([data.name, data.role, data.id, data.email, memrole]);
+		if (data.role == manager) {
+			inquirer.prompt(managerquestions).then(function (data1) {
+				memberrole = data1.office;
+				teamembers.push([
+					data.name,
+					data.role,
+					data.id,
+					data.email,
+					memberrole,
+				]);
+				nextmember();
 			});
 		} else if (data.role == "engineer") {
-			inquirer.prompt(engineerquestions).then(function (data) {
-				memrole = data.github;
-				teamMembers.push([data.name, data.role, data.id, data.email, memrole]);
-				nextmember();
+			inquirer.prompt(engineerquestions).then(function (data1) {
+				memberrole = data1.github;
+				teamembers.push([
+					data.name,
+					data.role,
+					data.id,
+					data.github,
+					memberrole,
+				]);
+				return nextmember();
 			});
 		} else {
-			inquirer.prompt(internquestions).then(function (data) {
-				memrole = data.school;
-				teamMembers.push([data.name, data.role, data.id, data.email, memrole]);
-				nextmember();
+			inquirer.prompt(internquestions).then(function (data1) {
+				memberrole = data1.school;
+				teamembers.push([
+					data.name,
+					data.role,
+					data.id,
+					data.school,
+					memberrole,
+				]);
+				return nextmember();
 			});
 		}
 	});
@@ -87,12 +108,10 @@ function nextmember() {
 			if (data.NewMember == "yes") {
 				employeeentery();
 			} else {
-				console.log(teammembers);
+				console.log(teamembers);
 			}
 		});
 }
 
-
 function type(data) {}
 init();
-type();
