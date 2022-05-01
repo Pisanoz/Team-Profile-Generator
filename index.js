@@ -4,7 +4,6 @@ const engineer = require("./Employee/engineer");
 const intern = require("./Employee/intern");
 const employee = require("./Employee/employee");
 const generateHTML = require("./generateHTML");
-const Fs = require("fs");
 let memrole = "";
 const employeequestion = [
 	{
@@ -59,18 +58,18 @@ function employeeentery() {
 		if (data.memrole == manager) {
 			inquirer.prompt(managerquestions).then(function (data) {
 				memrole = data.office;
-				teammember.push([data.name, data.role, data.id, data.email, memrole]);
+				teammembers.push([data.name, data.role, data.id, data.email, memrole]);
 			});
 		} else if (data.role == "engineer") {
 			inquirer.prompt(engineerquestions).then(function (data) {
 				memrole = data.github;
-				teammember.push([data.name, data.role, data.id, data.email, memrole]);
+				teamMembers.push([data.name, data.role, data.id, data.email, memrole]);
 				nextmember();
 			});
 		} else {
 			inquirer.prompt(internquestions).then(function (data) {
 				memrole = data.school;
-				teammember.push([data.name, data.role, data.id, data.email, memrole]);
+				teamMembers.push([data.name, data.role, data.id, data.email, memrole]);
 				nextmember();
 			});
 		}
@@ -88,26 +87,9 @@ function nextmember() {
 			if (data.NewMember == "yes") {
 				employeeentery();
 			} else {
-				console.log(teammember);
-				Fs.writeFile("index.html", generateHTML(teammembers), function (err) {
-					err ? console.log(err) : console.log("Success");
-				});
+				console.log(teammembers);
 			}
 		});
-}
-function generateCard(team) {
-	const arr = [];
-
-	team.forEach((object) => {
-		if (object.getRole() == "manager") {
-			arr.push(object.getRender());
-		} else if (object.getRole() == "engineer") {
-			arr.push(object.getRender());
-		} else if (object.getRole() == "intern") {
-			arr.push(object.getRender());
-		}
-	});
-	return arr;
 }
 
 
