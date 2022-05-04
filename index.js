@@ -2,10 +2,9 @@ const inquirer = require("inquirer");
 const Manager = require("./lib/Manager");
 const Engineer = require("./lib/Engineer");
 const Intern = require("./lib/Intern");
-const fs = require('fs');
-const path = require('path');
+const fs = require("fs");
+const path = require("path");
 const generateHTML = require("./src/generateHTML");
-
 
 const managerquestions = [
 	{
@@ -81,17 +80,11 @@ const teamMembers = [];
 
 function employeeentery() {
 	inquirer.prompt(managerquestions).then(function (data) {
-		const manager =new Manager(
-			data.name,
-			data.id,
-			data.email,
-			data.office
-			);
-			
-				teamMembers.push(manager);
-				nextmember();
-			});
-		
+		const manager = new Manager(data.name, data.id, data.email, data.office);
+
+		teamMembers.push(manager);
+		nextmember();
+	});
 }
 
 function nextmember() {
@@ -100,42 +93,47 @@ function nextmember() {
 			type: "list",
 			name: "NewMember",
 			message: "What would you like to do?",
-			choices: ["Add a Engineer?", "Add an Intern?", 'Done'],
+			choices: ["Add a Engineer?", "Add an Intern?", "Done"],
 		})
 		.then(function (data) {
 			switch (data.NewMember) {
 				case "Add a Engineer?":
-					addEngineer()
+					addEngineer();
 					break;
 				case "Add an Intern?":
+					addIntern();
+					break;
 
-				break
-			
 				default:
-				createTeam()
+					createTeam();
 					break;
 			}
 		});
 }
 
-function addEngineer(){
+function addEngineer() {
 	inquirer.prompt(engineerquestions).then(function (data) {
-		const engineer =new Engineer(
-			data.name,
-			data.id,
-			data.email,
-			data.github
-			);
-			
-				teamMembers.push(engineer);
-				nextmember();
-			});
-}
+		const engineer = new Engineer(data.name, data.id, data.email, data.github);
 
-function createTeam(){
-fs.writeFileSync(path.join(path.resolve(__dirname, 'dist'), 'team.html'), generateHTML(teamMembers) ,'utf-8')
+		teamMembers.push(engineer);
+		nextmember();
+	});
 }
+function addIntern() {
+	inquirer.prompt(internquestions).then(function (data) {
+		const intern = new Intern(data.name, data.id, data.email, data.school);
 
+		teamMembers.push(intern);
+		nextmember();
+	});
+}
+function createTeam() {
+	fs.writeFileSync(
+		path.join(path.resolve(__dirname, "dist"), "team.html"),
+		generateHTML(teamMembers),
+		"utf-8"
+	);
+}
 
 // function type(data) {}
 init();
